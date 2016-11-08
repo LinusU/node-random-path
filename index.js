@@ -23,10 +23,12 @@ function replaceToken (template, noise) {
 }
 
 var invocations = 0
+var localRandom = String(Math.random())
+
 function randomPath (directory, template) {
   validateTemplate(template)
 
-  var hash = murmur32(String(__filename) + String(process.pid) + String(++invocations))
+  var hash = murmur32(localRandom + String(process.pid) + String(++invocations))
   var noise = encodeBase32(hash, 'Crockford')
 
   return path.join(directory, replaceToken(template, noise))
