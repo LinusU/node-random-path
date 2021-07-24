@@ -1,5 +1,5 @@
-var assert = require('assert')
-var randomPath = require('./')
+import assert from 'node:assert'
+import randomPath, { validateTemplate } from './index.js'
 
 /* Invalid templates */
 assert.throws(function () {
@@ -15,28 +15,28 @@ assert.throws(function () {
 })
 
 assert.throws(function () {
-  randomPath.validateTemplate('bad template')
+  validateTemplate('bad template')
 })
 
 assert.throws(function () {
-  randomPath.validateTemplate('one: %s, two: %s')
+  validateTemplate('one: %s, two: %s')
 })
 
 assert.throws(function () {
-  randomPath.validateTemplate([1, 2])
+  validateTemplate([1, 2])
 })
 
 /* Valid templates */
-randomPath.validateTemplate('%s')
-randomPath.validateTemplate('%s.txt')
-randomPath.validateTemplate('test-%s')
-randomPath.validateTemplate('test-%s.exe')
-randomPath.validateTemplate('random => %s')
+validateTemplate('%s')
+validateTemplate('%s.txt')
+validateTemplate('test-%s')
+validateTemplate('test-%s.exe')
+validateTemplate('random => %s')
 
 /* Valid path */
-var a = randomPath('/tmp', 'test-%s.txt')
-var b = randomPath('/tmp', 'test-%s.txt')
-var c = randomPath('/tmp', 'test-%s.txt')
+const a = randomPath('/tmp', 'test-%s.txt')
+const b = randomPath('/tmp', 'test-%s.txt')
+const c = randomPath('/tmp', 'test-%s.txt')
 
 assert.notStrictEqual(a, b)
 assert.notStrictEqual(a, c)
